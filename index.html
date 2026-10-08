@@ -1,14 +1,230 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>wiuuuuu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            overflow: hidden;
+            background: #02000a;
+            color: #fff;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer; /* = clickable*/
+            user-select: none;
+        }
+
+        /* swirl thingy*/
+        .spiral-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 240vmax;
+            height: 240vmax;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .spiral-svg {
+            width: 100%;
+            height: 100%;
+            animation: rotateSpiral 35s linear infinite;
+            transform-origin: center center;
+        }
+
+        /* paused*/
+        body.paused .spiral-svg {
+            animation-play-state: paused;
+        }
+
+        /*swirl*/
+        .spiral-path {
+            fill: none;
+            stroke: #2a035e;
+            stroke-width: 60;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 18px #18003b);
+        }
+
+        @keyframes rotateSpiral {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /*starsss*/
+        .star-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: var(--size, 30px);
+            height: var(--size, 30px);
+            fill: var(--color, #8e62ff);
+            filter: drop-shadow(0 0 10px #320380);
+            opacity: 0.85;
+            animation: liquidFloat var(--duration, 12s) ease-in-out infinite alternate;
+        }
+
+        @keyframes liquidFloat {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(25px, -30px) rotate(18deg); }
+            100% { transform: translate(-20px, 25px) rotate(-12deg); }
+        }
+
+        .star:nth-child(1) { top: 18%; left: 15%; --size: 38px; --color: #a88eff; --duration: 11s; }
+        .star:nth-child(2) { top: 70%; left: 78%; --size: 44px; --color: #5524e0; --duration: 15s; animation-delay: -3s; }
+        .star:nth-child(3) { top: 75%; left: 22%; --size: 28px; --color: #7b42ff; --duration: 9s; animation-delay: -1.5s; }
+        .star:nth-child(4) { top: 20%; left: 80%; --size: 35px; --color: #8e62ff; --duration: 16s; animation-delay: -5s; }
+        .star:nth-child(5) { top: 45%; left: 10%; --size: 26px; --color: #c4b3ff; --duration: 13s; animation-delay: -2s; }
+        .star:nth-child(6) { top: 82%; left: 50%; --size: 32px; --color: #3f12b5; --duration: 10s; animation-delay: -4s; }
+
+        /*other page*/
+        .whims-link {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            text-decoration: none;
+            color: #d1c4ff;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 1px solid #2a035e;
+            border-radius: 20px;
+            background: rgba(4, 0, 18, 0.7);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 12px #18003b;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .whims-link:hover {
+            background: #2a035e;
+            color: #fff;
+            box-shadow: 0 0 20px #5524e0;
+        }
+
+        .q-container {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+        }
+
+        .title {
+            color: #d1c4ff;
+            font-size: 70px;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 0 0 20px #2a035e, 0 0 40px #18003b;
+            letter-spacing: 4px;
+        }
+
+        .subtitle {
+            color: #8e62ff;
+            font-size: 22px;
+            margin-top: 25px;
+            line-height: 1.8;
+            font-weight: bold;
+            text-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+        }
+
+        /*other other music page*/
+        .music-link {
+            position: absolute;
+            bottom: 20px;
+            left: 25px;
+            text-decoration: none;
+            color: #d1c4ff;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 1px solid #2a035e;
+            border-radius: 20px;
+            background: rgba(4, 0, 18, 0.7);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 12px #18003b;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .music-link:hover {
+            background: #035e3e;
+            color: #000000;
+            box-shadow: 0 0 20px #3bfad4;
+        }
+        
+    </style>
 </head>
-<body style="background-color: rgb(41, 12, 85);">
-    <img src="https://wallpapers.com/images/hd/purple-star-ck3mj1jxhgz2sgwd.jpg" alt="Image" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;">
-    <div>
-        <p style="color: rgb(183, 175, 255); font-size: 50px; text-align: center; margin-top: 20%;">HEYYY</p>
-        <p style="color: rgb(110, 95, 245); font-size: 18px; margin-top: 20px; margin-left: 10px;">make art<br>dress well<br> confuse people.</p>
+<body>
+
+    <!--spiral-->
+    <div class="spiral-container">
+        <svg class="spiral-svg" viewBox="0 0 2000 2000">
+            <path class="spiral-path" d="
+                M 1000 1000 
+                C 1015 955, 1060 955, 1075 1000 
+                C 1090 1075, 925 1120, 895 1000 
+                C 850 835, 1165 805, 1195 1000 
+                C 1240 1255, 745 1285, 715 1000 
+                C 670 640, 1375 610, 1405 1000 
+                C 1450 1465, 565 1480, 505 1000 
+                C 430 445, 1615 415, 1645 1000 
+                C 1690 1675, 385 1690, 325 1000 
+                C 250 250, 1825 220, 1885 1000
+            " />
+        </svg>
     </div>
+
+    <!--stars-->
+    <div class="star-container">
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 1.7l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.25L7 13.64l-5-4.87 6.91-1L12 1.7z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 1.7l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.25L7 13.64l-5-4.87 6.91-1L12 1.7z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 1.7l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.25L7 13.64l-5-4.87 6.91-1L12 1.7z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 1.7l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.25L7 13.64l-5-4.87 6.91-1L12 1.7z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 1.7l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.25L7 13.64l-5-4.87 6.91-1L12 1.7z"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><path d="M12 1.7l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.27l-6.18 3.25L7 13.64l-5-4.87 6.91-1L12 1.7z"/></svg>
+    </div>
+
+    <!--other page-->
+    <a href="./whims.html" class="whims-link">whimsical? ✦</a>
+    <a href="./music.html" class="music-link">music</a>
+
+    
+    <div class="q-container">
+        <p class="title">HEYYY</p>
+        <p class="subtitle">
+            dress well<br>
+            stay weird<br>
+            make art<br>
+            confuse people.
+        </p>
+    </div>
+
+    <script>
+        //when click
+        document.body.addEventListener('click', (e) => {
+            //stop/start spiral animation
+            if (e.target.closest('.whims-link')) return;
+            
+            document.body.classList.toggle('paused');
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('thatsitt.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #222;
+        }
+
+        /*back button*/
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #000;
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid #000;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: #035e3e;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        /*cool player container thingy*/
+        .player-window {
+            width: 360px;
+            background: linear-gradient(180deg, #e8e8ec 0%, #c5c5ce 100%);
+            border: 2px solid #8e8e9e;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*title barr*/
+        .title-bar {
+            background: linear-gradient(180deg, #d8d8e0 0%, #b0b0bc 100%);
+            padding: 4px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #999;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .window-controls span {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: #d0d0d8;
+            border: 1px solid #777;
+            border-radius: 2px;
+            text-align: center;
+            line-height: 11px;
+            font-size: 10px;
+            margin-left: 2px;
+            box-shadow: inset 1px 1px 0 #fff;
+        }
+
+        /*menu bar?*/
+        .menu-bar {
+            background: #e4e4ec;
+            padding: 3px 10px;
+            font-size: 11px;
+            color: #444;
+            border-bottom: 1px solid #bbb;
+            display: flex;
+            gap: 12px;
+        }
+
+        /*albumm*/
+        .screen-container {
+            padding: 8px;
+            background: #aaa;
+        }
+
+        .album-art-box {
+            width: 100%;
+            height: 220px;
+            background: #000;
+            border: 2px inset #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .album-art-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* timer?*/
+        .scrubber-area {
+            padding: 8px 12px 4px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-family: monospace;
+            color: #444;
+        }
+
+        .progress-bar {
+            flex: 1;
+            appearance: none;
+            height: 6px;
+            background: #999;
+            border-radius: 3px;
+            outline: none;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+        }
+
+        .progress-bar::-webkit-slider-thumb {
+            appearance: none;
+            width: 12px;
+            height: 14px;
+            background: linear-gradient(180deg, #fff, #aaa);
+            border: 1px solid #555;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        /*circular buttons cuz circular*/
+        .controls-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 0 15px 0;
+            background: linear-gradient(180deg, #cfcfe0 0%, #a8a8b8 100%);
+            border-top: 1px solid #fff;
+        }
+
+        .retro-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid #777;
+            background: linear-gradient(180deg, #ffffff 0%, #d0d0d8 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: #333;
+            transition: transform 0.05s ease;
+        }
+
+        .retro-btn.play-btn {
+            width: 46px;
+            height: 46px;
+            font-size: 16px;
+        }
+
+        .retro-btn:active {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+            transform: translateY(1px);
+        }
+
+        /*playlistt*/
+        .playlist-box {
+            background: #f4f4f8;
+            border-top: 1px solid #999;
+            max-height: 110px;
+            overflow-y: auto;
+            padding: 5px;
+            font-size: 12px;
+        }
+
+        .playlist-item {
+            padding: 5px 8px;
+            cursor: pointer;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .playlist-item:hover {
+            background: #e0e0f0;
+        }
+
+        .playlist-item.active {
+            background: #74ffc5;
+            font-weight: bold;
+        }
+
+        /*starss*/
+        .star {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /*left star*/
+        .star-top-left {
+            top: -60px;
+            left: -60px;
+            width: 320px;
+            height: 320px;
+            transform: rotate(-15deg);
+        }
+
+        /*right star*/
+        .star-bottom-right {
+            bottom: 40px;
+            right: 50px;
+            width: 140px;
+            height: 140px;
+            transform: rotate(12deg);
+        }
+
+        /*florall thingys?*/
+        .floral-corner {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;           
+            width: 280px; 
+            height: auto;
+        }
+
+        .floral-bottom-left {
+            bottom: 0;
+            left: 0;
+        }
+
+        .floral-top-right {
+            top: 0;
+            right: 0;
+            transform: rotate(180deg); 
+        }
+
+        .floral-corner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="back-btn">←</a>
+
+    <!--cool 2000s inspired floral vectorel pinterest thingy-->
+    <div class="floral-corner floral-bottom-left">
+        <img src="ohok.png" alt="floral border">
+    </div>
+
+    <!--same-->
+    <div class="floral-corner floral-top-right">
+        <img src="ohok.png" alt="floral border">
+    </div>
+
+    <!--left star-->
+    <svg class="star star-top-left" viewBox="0 0 100 100">
+        <!--geometric thingy-->
+        <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="#000000"/>
+    </svg>
+
+    <!--right star-->
+    <svg class="star star-bottom-right" viewBox="0 0 100 100">
+        
+        <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" 
+                fill="none" 
+                stroke="#ffffff" 
+                stroke-width="5" 
+                stroke-linejoin="round"/>
+    </svg>
+
+    <!--cool player-->
+    <div class="player-window">
+        <!--title-->
+        <div class="title-bar">
+            <span id="windowTitle">music is a need</span>
+            <div class="window-controls">
+                <span>_</span>
+                <span>□</span>
+                <span>✕</span>
+            </div>
+        </div>
+
+        <!--menu bar-->
+        <div class="menu-bar">
+            <span>File</span>
+            <span>Edit</span>
+            <span>View</span>
+            <span>Window</span>
+            <span>Help</span>
+        </div>
+
+        <!--album display-->
+        <div class="screen-container">
+            <div class="album-art-box">
+                <img id="albumCover" src="https://i.pinimg.com/736x/c4/29/ca/c429ca84cd1f0474746b88e51e3b0c72.jpg" alt="Album Art">
+            </div>
+        </div>
+
+        <!--scrubber and time-->
+        <div class="scrubber-area">
+            <span id="currentTime">00:00</span>
+            <input type="range" id="progressBar" class="progress-bar" value="0" min="0" max="100">
+            <audio id="audioPlayer" src=""></audio>
+        </div>
+
+        <!--buttons-->
+        <div class="controls-area">
+            <button class="retro-btn" onclick="prevTrack()">⏮</button>
+            <button class="retro-btn" onclick="skipSec(-10)">rew</button>
+            <button id="playBtn" class="retro-btn play-btn" onclick="togglePlay()">▶</button>
+            <button class="retro-btn" onclick="skipSec(10)">ff</button>
+            <button class="retro-btn" onclick="nextTrack()">⏭</button>
+        </div>
+
+        <!-- playlist-->
+        <div class="playlist-box">
+            <ul id="playlistList" style="list-style: none;"></ul>
+        </div>
+    </div>
+
+    <script>
+      
+        const defaultPlaylist = [
+            { 
+                title: "my direction", 
+                artist: "sum-41", 
+                url: "my direction.mp3", 
+                cover: "cute.jpg" 
+            },
+            { 
+                title: "staring at the sun", 
+                artist: "the offspring", 
+                url: "staring at the sun.mp3", 
+                cover: "https://i.pinimg.com/736x/fe/15/74/fe15749d1fd06702e113c05ade0cb95a.jpg" 
+            },
+            { 
+                title: "all messed up", 
+                artist: "sum-41", 
+                url: "all messed up.mp3", 
+                cover: "https://i.pinimg.com/736x/94/3b/83/943b83b3eb01e82669e408f974a36487.jpg" 
+            }
+        ];
+
+        let currentTrackIndex = 0;
+
+        function renderPlaylist() {
+            const listEl = document.getElementById("playlistList");
+            if (!listEl) return;
+            listEl.innerHTML = "";
+
+            defaultPlaylist.forEach((track, index) => {
+                const li = document.createElement("li");
+                li.className = `playlist-item ${index === currentTrackIndex ? "active" : ""}`;
+                li.innerHTML = `<span>${index + 1}. ${track.title}</span><small style="color:#666;">${track.artist}</small>`;
+                li.addEventListener("click", () => playTrack(index));
+                listEl.appendChild(li);
+            });
+        }
+
+        function playTrack(index) {
+            if (index >= defaultPlaylist.length) index = 0;
+            if (index < 0) index = defaultPlaylist.length - 1;
+
+            currentTrackIndex = index;
+            const track = defaultPlaylist[currentTrackIndex];
+
+            const audio = document.getElementById("audioPlayer");
+            const coverEl = document.getElementById("albumCover");
+            const windowTitle = document.getElementById("windowTitle");
+            const playBtn = document.getElementById("playBtn");
+
+            windowTitle.innerText = `${track.title} - ${track.artist}`;
+            if (track.cover) coverEl.src = track.cover;
+
+            audio.src = track.url;
+            audio.load();
+
+            audio.play().then(() => {
+                playBtn.innerText = "⏸";
+            }).catch(() => {
+                playBtn.innerText = "▶";
+            });
+
+            renderPlaylist();
+        }
+
+        function togglePlay() {
+            const audio = document.getElementById("audioPlayer");
+            const playBtn = document.getElementById("playBtn");
+
+            if (!audio.src || audio.src === window.location.href) {
+                playTrack(0);
+                return;
+            }
+
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerText = "⏸";
+            } else {
+                audio.pause();
+                playBtn.innerText = "▶";
+            }
+        }
+
+        function nextTrack() { playTrack(currentTrackIndex + 1); }
+        function prevTrack() { playTrack(currentTrackIndex - 1); }
+
+        function skipSec(sec) {
+            const audio = document.getElementById("audioPlayer");
+            if (audio) audio.currentTime += sec;
+        }
+
+        //crubber n time setup
+        window.addEventListener("DOMContentLoaded", () => {
+            const audio = document.getElementById("audioPlayer");
+            const progressBar = document.getElementById("progressBar");
+            const timeEl = document.getElementById("currentTime");
+
+            audio.addEventListener("timeupdate", () => {
+                if (audio.duration) {
+                    const pct = (audio.currentTime / audio.duration) * 100;
+                    progressBar.value = pct;
+
+                    let mins = Math.floor(audio.currentTime / 60);
+                    let secs = Math.floor(audio.currentTime % 60);
+                    timeEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            });
+
+            progressBar.addEventListener("input", () => {
+                if (audio.duration) {
+                    audio.currentTime = (progressBar.value / 100) * audio.duration;
+                }
+            });
+
+            audio.addEventListener("ended", nextTrack);
+            renderPlaylist();
+        });
+    </script>
+</body>
+</html>
