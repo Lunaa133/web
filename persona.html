@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>persona</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #b125e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: deeppink;
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid rgb(78, 20, 103);
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+
+        .stage {
+            position: relative;
+            width: 2400px;
+            height: 1400px;
+            max-width: 100vw;
+            max-height: 100vh;
+            background-image: url('purple.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .cd-clickable {
+            position: absolute;
+            background-size: cover;
+            background-position: center;
+            border: 4px solid #111;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .cd-clickable:hover {
+            filter: brightness(1.1);
+        }
+
+        .cd-clickable.zoom-active {
+            transform: scale(1.18) rotate(0deg) !important;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.6);
+            z-index: 50;
+        }
+
+        #btn-abby {
+            bottom: 120px;
+            left: 400px;
+            width: 380px;
+            height: 380px;
+            transform: rotate(-8deg);
+        }
+
+        #btn-luna {
+            top: 280px;
+            left: 720px;
+            width: 380px;
+            height: 380px;
+            transform: rotate(4deg);
+        }
+
+        #btn-peter {
+            bottom: 120px;
+            right: 500px;
+            width: 380px;
+            height: 380px;
+            transform: rotate(10deg);
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">←</a>
+
+    <div class="stage">
+        <button class="cd-clickable" id="btn-abby" onclick="selectCharacter('abby', this)"></button>
+        <button class="cd-clickable" id="btn-luna" onclick="selectCharacter('luna', this)"></button>
+        <button class="cd-clickable" id="btn-peter" onclick="selectCharacter('peter', this)"></button>
+    </div>
+
+    <script>
+        document.getElementById('btn-abby').style.backgroundImage = "url('abby.png')";
+        document.getElementById('btn-luna').style.backgroundImage = "url('luna.png')";
+        document.getElementById('btn-peter').style.backgroundImage = "url('peter.png')";
+
+        function selectCharacter(character, button) {
+            document.querySelectorAll('.cd-clickable').forEach(btn => btn.classList.remove('zoom-active'));
+            button.classList.add('zoom-active');
+
+            setTimeout(() => {
+                window.location.href = character + '.html';
+            }, 400);
+        }
+
+    </script>
+
+</body>
+</html>
