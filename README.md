@@ -41,54 +41,47 @@ however it is actually js as easy to compliment smt you really liked about a per
 
 ### who am i?
 
-idolized characters of mine. i put 3 there but ther are actually more <img width="20" height="20" alt="image" src="https://github.com/user-attachments/assets/bda53e02-b180-461b-94d3-fb268c216277" />
+idolized characters of mine. i put 3 there but ther are actually more <img width="20" height="20" alt="image" src="https://github.com/user-attachments/assets/bda53e02-b180-461b-94d3-fb268c216277" /> <img width="20" height="20" alt="image" src="https://github.com/user-attachments/assets/afccb8ef-53a8-44bb-abac-dfa5247f5742" /> <br>
+the 3 btw: 
+- Abby Sciuto from NCIS
+- Peter Parker (Andrew Garfield's ver.)
+- Luna Lovegood from Harry Potter
+
+anyway this is how this page looks like:
+  
+<img width="1917" height="870" alt="image" src="https://github.com/user-attachments/assets/f075e938-8de3-4060-8ca9-5e234df18371" />
+
+---
+#### sub pages of the "who am i" page:
+---
+###### note: i added these page as pictures as a whole - for each - so they look a bit off
+---
+##### Abby
+<img width="1917" height="870" alt="image" src="https://github.com/user-attachments/assets/73f7f5fd-17be-4cd8-8d87-1bafe9533105" />
+
+---
+##### Luna
+<img width="1897" height="860" alt="image" src="https://github.com/user-attachments/assets/45dbd82e-3ae8-4bb1-a109-4690c0d3e9a5" />
+
+---
+##### Peter
+<img width="1915" height="872" alt="image" src="https://github.com/user-attachments/assets/1c6c0f3d-8c9c-45f6-a82f-39d66a856517" />
+
+
 
 
 ---
 
-## Design
-
-### Spiders - because *Spider-Man*
-
-Spider webs anywhere and everywhere
-
-<img width="455" height="550" alt="image" src="https://github.com/user-attachments/assets/f8448ec9-e816-498a-855b-462888698565" />
-
----
-Spider gif appears when an app is clicked, rather than higlighting the icon
-
-<img width="916" height="607" alt="image" src="https://github.com/user-attachments/assets/6e9088b9-33ed-433d-b5a9-75182cf01f91" />
-
----
-
-## Other Features
-
-Scrollable left bar with pictures of Peter Parker
-
-
-<img width="427" height="862" alt="image" src="https://github.com/user-attachments/assets/c068f000-7086-4244-82bd-b122f1e58975" />
-
----
-
-Theme options for app icons !!!
-
-new additional icons: 
-
-<img width="561" height="170" alt="image" src="https://github.com/user-attachments/assets/6a32b4a6-a942-4203-94a4-372fb70c92fc" />
-
----
-
-
-## Software
+## software
 Used JavaScript, HTML, and CSS
 
 
-## Want to Create Your Own Version? / Setup
+## wanna create your own version? / setup
 
 ```bash
 # 1. clone the repository
-git clone https://github.com/Lunaa133/spideyy
-cd spideyy
+git clone https://github.com/Lunaa133/web
+cd web
 
 # 2. open index.html
 # on Windows:
@@ -100,12 +93,12 @@ open index.html
 
 ---
 
-## Deployment - with GitHub
+## deployment - with github
 
  1. push your changes to github
 ``` 
 git add .
-git commit -m "Update WebOS"
+git commit -m "Update Web"
 git push origin main
 ```
     
@@ -115,7 +108,7 @@ git push origin main
 
  4. under Branch, select main (or master) and keep folder as / (root).
 
- 5. click Save — wait a bit until a url is generated, that is where your site will be live at. (this is how mine looks like: https://lunaa133.github.io/spideyy/)
+ 5. click Save — wait a bit until a url is generated, that is where your site will be live at. (this is how mine looks like: https://lunaa133.github.io/web/)
 
 ---
 
